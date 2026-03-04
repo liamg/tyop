@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: macos-13
+          - arch: arm64
+            runner: macos-latest
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build
+        env:
+          GOARCH: ${{ matrix.arch }}
+          GOOS: darwin
+          CGO_ENABLED: 1
+        run: |
+          VERSION=${GITHUB_REF_NAME}
+          go build -ldflags="-s -w -X main.version=${VERSION}" -o tyop .
+          mkdir -p tyop.app/Contents/MacOS
+          cp tyop tyop.app/Contents/MacOS/tyop
+          tar -czf tyop-darwin-${{ matrix.arch }}.tar.gz tyop.app
+          shasum -a 256 tyop-darwin-${{ matrix.arch }}.tar.gz > tyop-darwin-${{ matrix.arch }}.tar.gz.sha256
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            tyop-darwin-${{ matrix.arch }}.tar.gz
+            tyop-darwin-${{ matrix.arch }}.tar.gz.sha256

@@ -1,0 +1,8 @@
+# compiled binaries
+tyop
+retype
+tyop.app/Contents/MacOS/tyop
+
+# test artifacts
+*.test
+*.out

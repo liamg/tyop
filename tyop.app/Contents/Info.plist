@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key>
+    <string>com.liamg.tyop</string>
+    <key>CFBundleName</key>
+    <string>tyop</string>
+    <key>CFBundleDisplayName</key>
+    <string>tyop</string>
+    <key>CFBundleExecutable</key>
+    <string>tyop</string>
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>NSAccessibilityUsageDescription</key>
+    <string>tyop needs Accessibility access to read and correct text in other applications.</string>
+    <key>NSInputMonitoringUsageDescription</key>
+    <string>tyop needs Input Monitoring access to detect the correction hotkey.</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>12.0</string>
+</dict>
+</plist>
