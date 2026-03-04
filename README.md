@@ -18,6 +18,7 @@ Press **Ctrl+.** while a text field is focused — tyop reads the text, fixes ty
 - Semicolons hit instead of apostrophe: `don;t` → `don't`, `i;m` → `i'm`
 - Capitalisation after `.`, `!`, `?` — but only if the text already contains capitals (so all-lowercase messages stay lowercase)
 - Common misspellings: `recieve` → `receive`, `seperate` → `separate`
+- Punctuation spacing: `hello ,friend` → `hello, friend`, `wait !` → `wait!`
 
 **Does not fix:**
 - Grammar (beyond the basics above)
@@ -44,7 +45,7 @@ On first launch, macOS will ask for Accessibility permission — tyop needs this
 
 Without this permission tyop won't work at all.
 
-> **Note:** tyop is not notarised (that requires a $99/yr Apple Developer account). The `xattr` command above removes the quarantine flag that macOS adds to downloaded apps — without it, macOS will refuse to open tyop.
+> **Note:** tyop is not notarised (that requires a $99/yr Apple Developer account). The `xattr` command removes the quarantine flag macOS adds to downloaded apps — without it macOS will refuse to open tyop.
 
 ## Usage
 
