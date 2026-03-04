@@ -34,7 +34,8 @@ Press **Ctrl+.** while a text field is focused — tyop reads the text, fixes ty
 
 ```sh
 brew tap liamg/tap
-brew install --cask tyop
+brew install --cask tyop && xattr -cr /Applications/tyop.app
+open /Applications/tyop.app
 ```
 
 On first launch, macOS will ask for Accessibility permission — tyop needs this to read and write text fields in other apps:
@@ -43,10 +44,7 @@ On first launch, macOS will ask for Accessibility permission — tyop needs this
 
 Without this permission tyop won't work at all.
 
-> **Note:** tyop is not notarised (that requires a $99/yr Apple Developer account). macOS may warn you the first time. Right-click the app → Open to bypass this, or run:
-> ```sh
-> xattr -d com.apple.quarantine /Applications/tyop.app
-> ```
+> **Note:** tyop is not notarised (that requires a $99/yr Apple Developer account). The `xattr` command above removes the quarantine flag that macOS adds to downloaded apps — without it, macOS will refuse to open tyop.
 
 ## Usage
 
