@@ -73,6 +73,15 @@ func TestCorrect(t *testing.T) {
 		{"hello world. how are you?", "hello world. how are you?"},
 		{"I went to Paris. how nice.", "I went to Paris. How nice."},
 		{"wait! what happened? nothing. I know.", "Wait! What happened? Nothing. I know."},
+
+		// --- links must NOT be corrected ---
+		{"check https://example.com ok", "check https://example.com ok"},
+		{"visit http://example.com/teh/path now", "visit http://example.com/teh/path now"},
+		{"see https://www.example.com/recieve?q=1", "see https://www.example.com/recieve?q=1"},
+		{"go to ftp://files.example.com/stuf", "go to ftp://files.example.com/stuf"},
+		{"try www.example.com/somethign", "try www.example.com/somethign"},
+		{"teh link https://example.com is cool", "the link https://example.com is cool"},
+		{"https://example.com", "https://example.com"},
 	}
 
 	for _, tt := range tests {
