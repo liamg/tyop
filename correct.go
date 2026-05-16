@@ -1,10 +1,14 @@
 package main
 
 import (
+	"regexp"
 	"strings"
 	"unicode"
 	"unicode/utf8"
 )
+
+// linkPattern matches common URL/link patterns that should not be spell-checked.
+var linkPattern = regexp.MustCompile(`(?i)(?:https?://|ftp://|www\.)\S+`)
 
 // Locale controls which spelling variants are preferred.
 type Locale string
@@ -35,6 +39,15 @@ func newCorrector(locale Locale) *Corrector {
 
 // Correct fixes typos in text, preserving whitespace and punctuation.
 func (c *Corrector) Correct(text string) string {
+	// Replace links with a placeholder before any processing so that
+	// preprocessSemicolons, fixPunctuation, and the spell checker never
+	// touch them.
+	var links []string
+	text = linkPattern.ReplaceAllStringFunc(text, func(match string) string {
+		links = append(links, match)
+		return "\x00"
+	})
+
 	text = c.preprocessSemicolons(text)
 	text = fixPunctuation(text)
 	tokens := tokenize(text)
@@ -60,7 +73,14 @@ func (c *Corrector) Correct(text string) string {
 		atBoundary = false
 		capitalize = false
 	}
-	return strings.Join(tokens, "")
+
+	result := strings.Join(tokens, "")
+
+	// Restore links in order.
+	for _, link := range links {
+		result = strings.Replace(result, "\x00", link, 1)
+	}
+	return result
 }
 
 // hasCapitalizedWord reports whether any word token starts with an uppercase letter.
